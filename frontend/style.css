@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #E8F5E9;  /* Verde pastel claro de fundo */
+    background: #F0F7FF;  /* Azul claro suave - limpeza, confiança */
     min-height: 100vh;
     padding: 20px;
 }
@@ -14,10 +14,10 @@ body {
 .container {
     max-width: 700px;
     margin: 0 auto;
-    background: #FFFFFF;  /* Branco */
-    border-radius: 20px;
+    background: #FFFFFF;  /* Branco puro - higiene, clareza */
+    border-radius: 16px;
     padding: 30px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .admin-container {
@@ -30,13 +30,13 @@ body {
 }
 
 .header h1 {
-    color: #4A5568;  /* Cinza suave */
+    color: #2E8B57;  /* Verde saúde */
     font-size: 28px;
     margin-bottom: 10px;
 }
 
 .header p {
-    color: #718096;  /* Cinza mais claro */
+    color: #5D6D7E;  /* Cinza médio */
     font-size: 14px;
 }
 
@@ -48,34 +48,34 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #4A5568;
+    color: #2C3E50;  /* Cinza escuro */
     font-size: 14px;
 }
 
 input, select, textarea {
     width: 100%;
     padding: 12px;
-    border: 2px solid #E2E8F0;
-    border-radius: 10px;
+    border: 2px solid #E0E6ED;
+    border-radius: 8px;
     font-size: 14px;
     transition: all 0.3s;
-    background: #FAFCFA;
+    background: #FFFFFF;
+    color: #2C3E50;
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: #A8D8EA;  /* Azul pastel */
-    box-shadow: 0 0 0 3px rgba(168, 216, 234, 0.2);
-    background: #FFFFFF;
+    border-color: #1E88E5;  /* Azul confiança */
+    box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
 }
 
 .btn-submit {
     width: 100%;
     padding: 14px;
-    background: #B7D7A8;  /* Verde menta pastel */
-    color: #4A5568;
+    background: #1E88E5;  /* Azul confiança */
+    color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -83,9 +83,9 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-submit:hover {
-    background: #A3C995;  /* Verde menta um pouco mais escuro */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #1565C0;  /* Azul mais escuro */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(30, 136, 229, 0.3);
 }
 
 .btn-submit:disabled {
@@ -97,34 +97,34 @@ input:focus, select:focus, textarea:focus {
 .message {
     margin-top: 20px;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 8px;
     text-align: center;
     display: none;
 }
 
 .message.success {
     display: block;
-    background: #D4E8D0;  /* Verde pastel claro */
-    color: #2E5C2E;
-    border-left: 4px solid #B7D7A8;
+    background: #E8F5E9;  /* Verde muito claro */
+    color: #2E7D32;
+    border-left: 4px solid #4CAF50;
 }
 
 .message.error {
     display: block;
-    background: #FADADD;  /* Rosa pastel claro */
-    color: #8B5E6B;
-    border-left: 4px solid #F4ACB6;
+    background: #FFEBEE;  /* Vermelho muito claro */
+    color: #C62828;
+    border-left: 4px solid #E57373;
 }
 
 .filho-item {
-    background: #F7FAFC;
+    background: #F8FAFC;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-bottom: 15px;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #E0E6ED;
 }
 
-/* ---------- ESTILOS DO PAINEL ADMIN ---------- */
+/* ---------- ESTILOS DO PAINEL ADMIN (SAÚDE) ---------- */
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -133,32 +133,33 @@ input:focus, select:focus, textarea:focus {
 }
 
 .card {
-    background: linear-gradient(135deg, #A8D8EA 0%, #B7D7A8 100%);
-    color: #4A5568;
+    background: linear-gradient(135deg, #2E8B57 0%, #1E88E5 100%);
+    color: white;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 16px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card h3 {
     font-size: 14px;
-    opacity: 0.8;
+    opacity: 0.9;
     margin-bottom: 10px;
-    color: #4A5568;
+    color: white;
+    font-weight: 500;
 }
 
 .card .number {
     font-size: 32px;
     font-weight: bold;
-    color: #2D3748;
+    color: white;
 }
 
 .chart-container {
     background: #FFFFFF;
     padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     max-width: 450px;
     margin: 0 auto;
 }
@@ -193,37 +194,54 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: #FFFFFF;
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 th {
-    background: #A8D8EA;  /* Azul pastel */
-    color: #4A5568;
+    background: #2E8B57;  /* Verde saúde */
+    color: white;
     font-weight: 600;
-    padding: 12px;
+    padding: 14px 12px;
     text-align: left;
 }
 
 td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #E2E8F0;
-    color: #4A5568;
+    border-bottom: 1px solid #E0E6ED;
+    color: #2C3E50;
 }
 
 tr:hover {
-    background: #F7FAFC;
+    background: #F8FAFC;
 }
 
 .btn-export {
-    background: #B7D7A8;  /* Verde menta pastel */
+    background: #4CAF50;  /* Verde claro */
     margin-right: 10px;
 }
 
 .btn-export:hover {
-    background: #A3C995;
+    background: #388E3C;
+}
+
+.btn-export, .btn-submit:last-child {
+    width: auto;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+/* Botão de sair */
+.btn-submit:last-child {
+    background: #E0E6ED;
+    color: #2C3E50;
+}
+
+.btn-submit:last-child:hover {
+    background: #CBD5E1;
+    transform: translateY(-1px);
 }
 
 .login-panel {
@@ -232,8 +250,8 @@ tr:hover {
     text-align: center;
     background: #FFFFFF;
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .login-panel input {
@@ -241,7 +259,7 @@ tr:hover {
 }
 
 .login-panel h1 {
-    color: #4A5568;
+    color: #2E8B57;
     margin-bottom: 10px;
 }
 
@@ -251,22 +269,6 @@ tr:hover {
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 30px;
-}
-
-.btn-submit {
-    width: auto;
-    padding: 10px 20px;
-    display: inline-block;
-}
-
-/* Botão de sair */
-.btn-submit:last-child {
-    background: #FADADD;
-    color: #8B5E6B;
-}
-
-.btn-submit:last-child:hover {
-    background: #F4ACB6;
 }
 
 /* Responsivo */
@@ -296,8 +298,13 @@ tr:hover {
     }
     
     th, td {
-        padding: 8px;
+        padding: 10px 8px;
         font-size: 12px;
+    }
+    
+    .login-panel {
+        margin: 50px auto;
+        padding: 30px 20px;
     }
 }
 
