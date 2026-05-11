@@ -39,6 +39,22 @@
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .charts-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .charts-wrapper .chart-container {
+            flex: 1;
+            min-width: 280px;
+            max-width: 450px;
+            margin: 0;
         }
         .responses-table {
             width: 100%;
@@ -62,7 +78,7 @@
         }
         .btn-export {
             background: #48bb78;
-            margin-bottom: 20px;
+            margin-right: 10px;
         }
         .login-panel {
             max-width: 400px;
@@ -71,6 +87,30 @@
         }
         .login-panel input {
             margin-bottom: 15px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .btn-submit {
+            width: auto;
+            padding: 10px 20px;
+            display: inline-block;
+        }
+        canvas {
+            max-height: 280px;
+            width: 100% !important;
+        }
+        @media (max-width: 768px) {
+            .charts-wrapper .chart-container {
+                min-width: 250px;
+            }
+            canvas {
+                max-height: 220px;
+            }
         }
     </style>
 </head>
@@ -89,6 +129,9 @@
             <div class="header">
                 <h1>📊 Painel de Respostas</h1>
                 <p>Dados da pesquisa Saúde Solidária</p>
+            </div>
+            
+            <div class="header-buttons">
                 <button class="btn-submit btn-export" onclick="exportarCSV()">📥 Exportar CSV</button>
                 <button class="btn-submit" onclick="logout()" style="background:#e53e3e;">🚪 Sair</button>
             </div>
@@ -100,13 +143,14 @@
                 <div class="card"><h3>📊 Média de dependentes</h3><div class="number" id="mediaDependentes">0</div></div>
             </div>
             
-            <!-- Gráficos -->
-            <div class="chart-container">
-                <canvas id="participacaoChart"></canvas>
-            </div>
-            
-            <div class="chart-container">
-                <canvas id="percentualChart"></canvas>
+            <!-- Gráficos lado a lado -->
+            <div class="charts-wrapper">
+                <div class="chart-container">
+                    <canvas id="participacaoChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="percentualChart"></canvas>
+                </div>
             </div>
             
             <!-- Tabela de respostas -->
