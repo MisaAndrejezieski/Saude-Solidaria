@@ -1,15 +1,23 @@
 const API_URL = 'https://saude-solidaria-api.onrender.com';
 const SENHA_ADMIN = 'saude123';
 
+// Função de login
 function verificarSenha() {
     const senha = document.getElementById('adminPassword').value;
+    const errorDiv = document.getElementById('loginError');
+    
     if (senha === SENHA_ADMIN) {
         localStorage.setItem('admin_logado', 'true');
         document.getElementById('loginPanel').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         carregarDados();
     } else {
-        alert('Senha incorreta!');
+        if (errorDiv) {
+            errorDiv.textContent = '❌ Senha incorreta!';
+            errorDiv.style.display = 'block';
+        } else {
+            alert('Senha incorreta!');
+        }
     }
 }
 
@@ -18,12 +26,20 @@ function logout() {
     document.getElementById('loginPanel').style.display = 'block';
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('adminPassword').value = '';
+    
+    const errorDiv = document.getElementById('loginError');
+    if (errorDiv) errorDiv.style.display = 'none';
 }
 
 async function carregarDados() {
     try {
         // Buscar respostas
         const respResponse = await fetch(`${API_URL}/api/respostas`);
+        
+        if (!respResponse.ok) {
+            throw new Error(`HTTP ${respResponse.status}`);
+        }
+        
         const respostas = await respResponse.json();
         
         // Buscar estatísticas
@@ -54,7 +70,7 @@ async function carregarDados() {
                 datasets: [{
                     label: 'Número de respostas',
                     data: [stats.total_sim || 0, stats.total_nao || 0, stats.total_talvez || 0],
-                    backgroundColor: ['#48bb78', '#e53e3e', '#ed8936'],
+                    backgroundColor: ['#4CAF50', '#E57373', '#FFB74D'],
                     borderRadius: 8,
                     barPercentage: 0.6
                 }]
@@ -65,31 +81,12 @@ async function carregarDados() {
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: {
-                            font: { size: 11 }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.raw} resposta(s)`;
-                            }
-                        }
+                        labels: { font: { size: 11 } }
                     }
                 },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            font: { size: 10 }
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            font: { size: 11 }
-                        }
-                    }
+                    y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } } },
+                    x: { ticks: { font: { size: 11 } } }
                 }
             }
         });
@@ -113,7 +110,7 @@ async function carregarDados() {
                 labels: ['3%', '5%', '7%', '10%'],
                 datasets: [{
                     data: [percentuaisMap['3'], percentuaisMap['5'], percentuaisMap['7'], percentuaisMap['10']],
-                    backgroundColor: ['#4299e1', '#48bb78', '#ed8936', '#9f7aea'],
+                    backgroundColor: ['#1E88E5', '#4CAF50', '#FFB74D', '#2E8B57'],
                     borderWidth: 0
                 }]
             },
@@ -121,13 +118,7 @@ async function carregarDados() {
                 responsive: true,
                 maintainAspectRatio: true,
                 plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            font: { size: 11 },
-                            padding: 10
-                        }
-                    },
+                    legend: { position: 'bottom', labels: { font: { size: 11 } } },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -137,9 +128,6 @@ async function carregarDados() {
                             }
                         }
                     }
-                },
-                layout: {
-                    padding: 5
                 }
             }
         });
@@ -158,7 +146,6 @@ async function carregarDados() {
         
         respostas.forEach(r => {
             const row = tbody.insertRow();
-            
             row.insertCell(0).textContent = r.nome || 'Anônimo';
             row.insertCell(1).textContent = r.setor || '-';
             row.insertCell(2).textContent = salarioMap[r.salario] || '-';
@@ -169,13 +156,12 @@ async function carregarDados() {
             if (r.tem_conjuge === 'sim') dependentesText += 'Cônjuge ';
             if (r.qtd_filhos && r.qtd_filhos !== '0') dependentesText += `+${r.qtd_filhos} filho(s)`;
             row.insertCell(5).textContent = dependentesText || 'Nenhum';
-            
             row.insertCell(6).textContent = new Date(r.data).toLocaleDateString('pt-BR');
         });
         
     } catch (error) {
         console.error('Erro ao carregar dados:', error);
-        alert('Erro ao carregar dados do servidor. Verifique se o backend está rodando.');
+        document.getElementById('tbodyRespostas').innerHTML = `<tr><td colspan="7">❌ Erro ao carregar dados: ${error.message}</td></tr>`;
     }
 }
 
@@ -189,7 +175,7 @@ async function exportarCSV() {
             return;
         }
         
-        let csv = '"Nome","Setor","Salário","Gasto Medicamento","Gasto Exame","Tem Cônjuge","Qtd Filhos","Participaria","% Ideal","Data"\n';
+        let csv = '"Nome","Setor","Salário","Participaria","% Ideal","Data"\n';
         
         const salarioMap = {
             'ate_2000': 'Até R$ 2.000',
@@ -199,18 +185,8 @@ async function exportarCSV() {
             'acima_5000': 'Acima de R$ 5.000'
         };
         
-        const gastoMap = {
-            'nenhum': 'Nenhum',
-            'ate_50': 'Até R$ 50',
-            '51_100': 'R$ 51 a R$ 100',
-            '101_200': 'R$ 101 a R$ 200',
-            '201_500': 'R$ 201 a R$ 500',
-            'acima_200': 'Acima de R$ 200',
-            'acima_500': 'Acima de R$ 500'
-        };
-        
         respostas.forEach(r => {
-            csv += `"${r.nome || 'Anônimo'}","${r.setor || ''}","${salarioMap[r.salario] || ''}","${gastoMap[r.gasto_medicamento] || ''}","${gastoMap[r.gasto_exame] || ''}","${r.tem_conjuge === 'sim' ? 'Sim' : 'Não'}","${r.qtd_filhos || 0}","${r.participaria === 'sim' ? 'Sim' : (r.participaria === 'nao' ? 'Não' : 'Talvez')}","${r.percentual_ideal || ''}%","${new Date(r.data).toLocaleDateString('pt-BR')}"\n`;
+            csv += `"${r.nome || 'Anônimo'}","${r.setor || ''}","${salarioMap[r.salario] || ''}","${r.participaria === 'sim' ? 'Sim' : (r.participaria === 'nao' ? 'Não' : 'Talvez')}","${r.percentual_ideal || ''}%","${new Date(r.data).toLocaleDateString('pt-BR')}"\n`;
         });
         
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -230,8 +206,10 @@ async function exportarCSV() {
 }
 
 // Verificar login ao carregar
-if (localStorage.getItem('admin_logado') === 'true') {
-    document.getElementById('loginPanel').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    carregarDados();
-}
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('admin_logado') === 'true') {
+        document.getElementById('loginPanel').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        carregarDados();
+    }
+});
