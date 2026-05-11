@@ -1,0 +1,56 @@
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ambiente virtual Python (se usar)
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+
+# Arquivos de ambiente (contém senhas!)
+.env
+.env.local
+.env.*.local
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vs/
+
+# Logs
+logs/
+*.log
+
+# Arquivos de build
+dist/
+build/
+out/
+
+# Banco de dados local
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup e temporários
+*.bak
+*.tmp
+*.temp
+
+# Arquivos do GitHub Desktop
+.github/
+
+# Arquivos do Render (opcional)
+render.yaml
