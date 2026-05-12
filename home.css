@@ -11,7 +11,7 @@
 }
 
 /* Se quiser um tamanho diferente no celular */
-@media (max-width: 768px) {
+@media (max-width: 780px) {
     .logo-img {
         height: 40px;
     }
