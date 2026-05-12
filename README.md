@@ -39,7 +39,7 @@ O sistema é totalmente responsivo, funcionando em:
 
 ## 👨‍💻 Autor
 
-Iniciativa dos funcionários para os funcionários.
+Misael Andrejezieski.
 
 ---
 
