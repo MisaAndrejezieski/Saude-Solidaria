@@ -14,7 +14,7 @@ const pool = new Pool({
     host: 'localhost',
     port: 5432,
     user: 'postgres',
-    password: 'postgres',  // ← SUBSTITUA PELA SUA SENHA DO POSTGRESQL
+    password: 'qwert123',  // ← SUBSTITUA PELA SUA SENHA DO POSTGRESQL
     database: 'saude_db',
     ssl: false
 });
