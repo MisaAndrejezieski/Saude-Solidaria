@@ -1,45 +1,39 @@
+/* ============================================================ */
+/* ESTILOS GLOBAIS - SAÚDE SOLIDÁRIA                          */
+/* Responsivo para Desktop, Tablet e Mobile                   */
+/* ============================================================ */
+
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Fundo da página */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #F0F7FF;  /* Azul claro suave - limpeza, confiança */
+    background: #F0F7FF;
     min-height: 100vh;
     padding: 20px;
 }
 
+/* Container padrão para formulário e páginas */
 .container {
     max-width: 700px;
     margin: 0 auto;
-    background: #FFFFFF;  /* Branco puro - higiene, clareza */
+    background: #FFFFFF;
     border-radius: 16px;
     padding: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Container específico para o painel admin */
 .admin-container {
     max-width: 1200px;
 }
 
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    color: #2E8B57;  /* Verde saúde */
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.header p {
-    color: #5D6D7E;  /* Cinza médio */
-    font-size: 14px;
-}
-
+/* ==================== FORMULÁRIO ==================== */
 .form-group {
     margin-bottom: 20px;
 }
@@ -48,7 +42,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #2C3E50;  /* Cinza escuro */
+    color: #2C3E50;
     font-size: 14px;
 }
 
@@ -65,14 +59,13 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: #1E88E5;  /* Azul confiança */
+    border-color: #1E88E5;
     box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
 }
 
+/* Botão padrão */
 .btn-submit {
-    width: 100%;
-    padding: 14px;
-    background: #1E88E5;  /* Azul confiança */
+    background: #1E88E5;
     color: white;
     border: none;
     border-radius: 8px;
@@ -80,20 +73,21 @@ input:focus, select:focus, textarea:focus {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    padding: 14px;
+    width: 100%;
 }
 
 .btn-submit:hover {
-    background: #1565C0;  /* Azul mais escuro */
+    background: #1565C0;
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(30, 136, 229, 0.3);
 }
 
 .btn-submit:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    transform: none;
 }
 
+/* Mensagens de sucesso e erro */
 .message {
     margin-top: 20px;
     padding: 15px;
@@ -104,18 +98,19 @@ input:focus, select:focus, textarea:focus {
 
 .message.success {
     display: block;
-    background: #E8F5E9;  /* Verde muito claro */
+    background: #E8F5E9;
     color: #2E7D32;
     border-left: 4px solid #4CAF50;
 }
 
 .message.error {
     display: block;
-    background: #FFEBEE;  /* Vermelho muito claro */
+    background: #FFEBEE;
     color: #C62828;
     border-left: 4px solid #E57373;
 }
 
+/* Bloco para dependentes (filhos) */
 .filho-item {
     background: #F8FAFC;
     padding: 15px;
@@ -124,7 +119,7 @@ input:focus, select:focus, textarea:focus {
     border: 1px solid #E0E6ED;
 }
 
-/* ---------- ESTILOS DO PAINEL ADMIN (SAÚDE) ---------- */
+/* ==================== PAINEL ADMIN (CARDS) ==================== */
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -145,45 +140,14 @@ input:focus, select:focus, textarea:focus {
     font-size: 14px;
     opacity: 0.9;
     margin-bottom: 10px;
-    color: white;
-    font-weight: 500;
 }
 
 .card .number {
     font-size: 32px;
     font-weight: bold;
-    color: white;
 }
 
-.chart-container {
-    background: #FFFFFF;
-    padding: 15px;
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    max-width: 450px;
-    margin: 0 auto;
-}
-
-.charts-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-.charts-wrapper .chart-container {
-    flex: 1;
-    min-width: 280px;
-    max-width: 450px;
-    margin: 0;
-}
-
-canvas {
-    max-height: 280px !important;
-    width: 100% !important;
-}
-
+/* ==================== PAINEL ADMIN (TABELA) ==================== */
 .responses-table {
     width: 100%;
     overflow-x: auto;
@@ -200,11 +164,11 @@ table {
 }
 
 th {
-    background: #2E8B57;  /* Verde saúde */
+    background: #2E8B57;
     color: white;
-    font-weight: 600;
     padding: 14px 12px;
     text-align: left;
+    font-weight: 600;
 }
 
 td {
@@ -218,32 +182,55 @@ tr:hover {
     background: #F8FAFC;
 }
 
+/* ==================== PAINEL ADMIN (CABEÇALHO) ==================== */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #2E8B57;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #5D6D7E;
+    font-size: 14px;
+}
+
+/* Botões do admin (Exportar, Zerar Banco, Sair) */
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.header-buttons .btn-submit {
+    width: auto;
+    padding: 10px 20px;
+}
+
 .btn-export {
-    background: #4CAF50;  /* Verde claro */
-    margin-right: 10px;
+    background: #4CAF50;
 }
 
 .btn-export:hover {
     background: #388E3C;
 }
 
-.btn-export, .btn-submit:last-child {
-    width: auto;
-    padding: 10px 20px;
-    display: inline-block;
+.btn-danger {
+    background: #e53e3e;
 }
 
-/* Botão de sair */
-.btn-submit:last-child {
-    background: #E0E6ED;
-    color: #2C3E50;
+.btn-danger:hover {
+    background: #c53030;
 }
 
-.btn-submit:last-child:hover {
-    background: #CBD5E1;
-    transform: translateY(-1px);
-}
-
+/* ==================== TELA DE LOGIN DO ADMIN ==================== */
 .login-panel {
     max-width: 400px;
     margin: 100px auto;
@@ -254,43 +241,52 @@ tr:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.login-panel input {
-    margin-bottom: 15px;
-}
-
 .login-panel h1 {
     color: #2E8B57;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-.header-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
+.login-panel input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #E0E6ED;
+    border-radius: 8px;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .container {
+.login-panel .btn-submit {
+    width: 100%;
+}
+
+#loginError {
+    color: #e53e3e;
+    margin-top: 10px;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+/* Tablet (entre 768px e 1024px) */
+@media (max-width: 1024px) {
+    .admin-container {
         padding: 20px;
-    }
-    
-    .charts-wrapper .chart-container {
-        min-width: 250px;
-    }
-    
-    canvas {
-        max-height: 220px !important;
-    }
-    
-    .chart-container {
-        padding: 10px;
     }
     
     .dashboard-cards {
         gap: 15px;
+    }
+    
+    .card .number {
+        font-size: 28px;
+    }
+}
+
+/* Mobile (até 768px) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
     }
     
     .card .number {
@@ -302,22 +298,46 @@ tr:hover {
         font-size: 12px;
     }
     
-    .login-panel {
-        margin: 50px auto;
-        padding: 30px 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    .charts-wrapper .chart-container {
-        min-width: 100%;
-    }
-    
     .header-buttons {
         flex-direction: column;
+        align-items: center;
     }
     
     .header-buttons .btn-submit {
         width: 100%;
+        max-width: 200px;
+    }
+    
+    .login-panel {
+        margin: 50px auto;
+        padding: 30px 20px;
+    }
+    
+    .login-panel h1 {
+        font-size: 24px;
+    }
+}
+
+/* Mobile pequeno (até 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .card .number {
+        font-size: 28px;
+    }
+    
+    th, td {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+    
+    .header h1 {
+        font-size: 22px;
     }
 }
