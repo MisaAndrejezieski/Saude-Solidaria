@@ -17,16 +17,6 @@
     }
 }
 
-.logo {
-    background-image: url('frontend/logo-saude.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 200px;      /* Largura desejada */
-    height: 60px;      /* Altura desejada */
-    text-indent: -9999px; /* Esconde o texto */
-}
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #E8F5E9 0%, #E0F2FE 100%);
