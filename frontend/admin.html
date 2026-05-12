@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Painel ADM - Saúde Solidária</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container admin-container">
+        <!-- TELA DE LOGIN -->
+        <div id="loginPanel" class="login-panel">
+            <h1>🔐 Painel Administrativo</h1>
+            <p>Digite a senha para acessar</p>
+            <input type="password" id="adminPassword" placeholder="Senha administrativa">
+            <button class="btn-submit" onclick="verificarSenha()">Entrar</button>
+            <div id="loginError"></div>
+        </div>
+
+        <!-- DASHBOARD (aparece após login) -->
+        <div id="dashboard" style="display:none;">
+            <div class="header">
+                <h1>📊 Painel de Respostas</h1>
+                <p>Dados da pesquisa Saúde Solidária</p>
+            </div>
+
+            <div class="header-buttons">
+                <button class="btn-submit btn-export" onclick="exportarCSV()">📥 Exportar CSV</button>
+                <button class="btn-submit btn-danger" onclick="confirmarLimpeza()">🗑️ Zerar Banco</button>
+                <button class="btn-submit" onclick="logout()">🚪 Sair</button>
+            </div>
+
+            <!-- CARDS DE ESTATÍSTICAS -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>📋 Total de respostas</h3>
+                    <div class="number" id="totalRespostas">0</div>
+                </div>
+                <div class="card">
+                    <h3>✅ Interessados (Sim)</h3>
+                    <div class="number" id="totalSim">0</div>
+                </div>
+                <div class="card">
+                    <h3>📊 Média de dependentes</h3>
+                    <div class="number" id="mediaDependentes">0</div>
+                </div>
+            </div>
+
+            <!-- TABELA DE RESPOSTAS -->
+            <div class="responses-table">
+                <h3>📋 Respostas detalhadas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Setor</th>
+                            <th>Salário</th>
+                            <th>Participaria</th>
+                            <th>% ideal</th>
+                            <th>Dependentes</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyRespostas">
+                        <tr><td colspan="7">Carregando...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
