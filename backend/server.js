@@ -8,29 +8,16 @@ app.use(cors());
 app.use(express.json());
 
 // ============================================================
-// CONEXÃO COM O BANCO DE DADOS (LOCAL OU RENDER)
+// CONEXÃO COM O BANCO DE DADOS (LOCAL)
 // ============================================================
-let pool;
-
-if (process.env.DATABASE_URL) {
-    // Ambiente Render (produção)
-    pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false }
-    });
-    console.log('✅ Conectando ao banco do Render');
-} else {
-    // Ambiente LOCAL (seu computador)
-    pool = new Pool({
-        host: 'localhost',
-        port: 5432,
-        user: 'postgres',
-        password: 'postgres',  // ← SUBSTITUA PELA SUA SENHA
-        database: 'saude_db',
-        ssl: false
-    });
-    console.log('✅ Conectando ao banco LOCAL (PostgreSQL)');
-}
+const pool = new Pool({
+    host: 'localhost',
+    port: 5432,
+    user: 'postgres',
+    password: 'postgres',  // ← SUBSTITUA PELA SUA SENHA DO POSTGRESQL
+    database: 'saude_db',
+    ssl: false
+});
 
 // ============================================================
 // CRIA A TABELA SE NÃO EXISTIR
@@ -64,12 +51,15 @@ async function initDatabase() {
 initDatabase();
 
 // ============================================================
-// ROTAS DA API
+// ROTA DE TESTE
 // ============================================================
 app.get('/', (req, res) => {
     res.json({ message: 'API Saúde Solidária funcionando!' });
 });
 
+// ============================================================
+// ENDPOINT PARA SALVAR RESPOSTA
+// ============================================================
 app.post('/api/respostas', async (req, res) => {
     const { nome, setor, salario, gasto_medicamento, gasto_exame, tem_conjuge, gasto_conjuge, qtd_filhos, gastos_filhos, participaria, percentual_ideal, comentarios } = req.body;
     try {
@@ -84,6 +74,9 @@ app.post('/api/respostas', async (req, res) => {
     }
 });
 
+// ============================================================
+// ENDPOINT PARA LISTAR RESPOSTAS
+// ============================================================
 app.get('/api/respostas', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM respostas ORDER BY data DESC');
@@ -94,6 +87,9 @@ app.get('/api/respostas', async (req, res) => {
     }
 });
 
+// ============================================================
+// ENDPOINT PARA ESTATÍSTICAS
+// ============================================================
 app.get('/api/estatisticas', async (req, res) => {
     try {
         const result = await pool.query(`SELECT COUNT(*) as total, SUM(CASE WHEN participaria = 'sim' THEN 1 ELSE 0 END) as total_sim, SUM(CASE WHEN participaria = 'nao' THEN 1 ELSE 0 END) as total_nao, SUM(CASE WHEN participaria = 'talvez' THEN 1 ELSE 0 END) as total_talvez FROM respostas`);
@@ -105,22 +101,42 @@ app.get('/api/estatisticas', async (req, res) => {
     }
 });
 
+// ============================================================
+// ENDPOINT PARA LIMPAR O BANCO (DELETE)
+// ============================================================
 app.delete('/api/limpar', async (req, res) => {
     try {
         const countResult = await pool.query('SELECT COUNT(*) FROM respostas');
         const total = parseInt(countResult.rows[0].count);
+        
         if (total === 0) {
-            return res.json({ success: true, message: 'Banco já estava vazio', deletedCount: 0 });
+            return res.json({ 
+                success: true, 
+                message: 'Banco já estava vazio',
+                deletedCount: 0
+            });
         }
+        
         const result = await pool.query('DELETE FROM respostas');
         console.log(`🗑️ ${result.rowCount} respostas deletadas do banco`);
-        res.json({ success: true, message: `${result.rowCount} respostas foram deletadas com sucesso!`, deletedCount: result.rowCount });
+        
+        res.json({ 
+            success: true, 
+            message: `${result.rowCount} respostas foram deletadas com sucesso!`,
+            deletedCount: result.rowCount
+        });
     } catch (err) {
         console.error('❌ Erro ao limpar banco:', err);
-        res.status(500).json({ success: false, error: 'Erro ao limpar dados do banco' });
+        res.status(500).json({ 
+            success: false, 
+            error: 'Erro ao limpar dados do banco' 
+        });
     }
 });
 
+// ============================================================
+// INICIA O SERVIDOR
+// ============================================================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
