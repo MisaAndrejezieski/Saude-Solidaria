@@ -1,0 +1,35 @@
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de ambiente (senhas!)
+.env
+.env.local
+.env.*.local
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Build e distribuição
+dist/
+build/
+out/
+
+# Backup e temporários
+*.bak
+*.tmp
+*.temp
