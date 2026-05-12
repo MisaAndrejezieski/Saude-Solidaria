@@ -10,31 +10,30 @@ app.use(express.json());
 // ============================================================
 // CONEXÃO COM O BANCO DE DADOS (LOCAL OU RENDER)
 // ============================================================
-let poolConfig = {
-    connectionString: process.env.DATABASE_URL,
-};
+let pool;
 
 if (process.env.DATABASE_URL) {
-    // Ambiente Render (produção) - SSL ativado
-    poolConfig.ssl = { rejectUnauthorized: false };
-    console.log('✅ Conectando ao banco do Render (SSL ativado)');
+    // Ambiente Render (produção)
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false }
+    });
+    console.log('✅ Conectando ao banco do Render');
 } else {
-    // Ambiente local - sem SSL
-    console.log('⚠️ DATABASE_URL não encontrada. Usando PostgreSQL local (sem SSL)');
-    poolConfig = {
+    // Ambiente LOCAL (seu computador)
+    pool = new Pool({
         host: 'localhost',
         port: 5432,
         user: 'postgres',
-        password: 'postgres',  // ← altere para sua senha local
+        password: 'postgres',  // ← SUBSTITUA PELA SUA SENHA
         database: 'saude_db',
         ssl: false
-    };
+    });
+    console.log('✅ Conectando ao banco LOCAL (PostgreSQL)');
 }
 
-const pool = new Pool(poolConfig);
-
 // ============================================================
-// CRIA A TABELA 'respostas' SE NÃO EXISTIR
+// CRIA A TABELA SE NÃO EXISTIR
 // ============================================================
 async function initDatabase() {
     const createTableQuery = `
@@ -65,15 +64,12 @@ async function initDatabase() {
 initDatabase();
 
 // ============================================================
-// ROTA DE TESTE
+// ROTAS DA API
 // ============================================================
 app.get('/', (req, res) => {
     res.json({ message: 'API Saúde Solidária funcionando!' });
 });
 
-// ============================================================
-// ENDPOINT PARA SALVAR RESPOSTA
-// ============================================================
 app.post('/api/respostas', async (req, res) => {
     const { nome, setor, salario, gasto_medicamento, gasto_exame, tem_conjuge, gasto_conjuge, qtd_filhos, gastos_filhos, participaria, percentual_ideal, comentarios } = req.body;
     try {
@@ -88,9 +84,6 @@ app.post('/api/respostas', async (req, res) => {
     }
 });
 
-// ============================================================
-// ENDPOINT PARA LISTAR RESPOSTAS
-// ============================================================
 app.get('/api/respostas', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM respostas ORDER BY data DESC');
@@ -101,9 +94,6 @@ app.get('/api/respostas', async (req, res) => {
     }
 });
 
-// ============================================================
-// ENDPOINT PARA ESTATÍSTICAS
-// ============================================================
 app.get('/api/estatisticas', async (req, res) => {
     try {
         const result = await pool.query(`SELECT COUNT(*) as total, SUM(CASE WHEN participaria = 'sim' THEN 1 ELSE 0 END) as total_sim, SUM(CASE WHEN participaria = 'nao' THEN 1 ELSE 0 END) as total_nao, SUM(CASE WHEN participaria = 'talvez' THEN 1 ELSE 0 END) as total_talvez FROM respostas`);
@@ -115,9 +105,6 @@ app.get('/api/estatisticas', async (req, res) => {
     }
 });
 
-// ============================================================
-// ENDPOINT PARA LIMPAR O BANCO (DELETE)
-// ============================================================
 app.delete('/api/limpar', async (req, res) => {
     try {
         const countResult = await pool.query('SELECT COUNT(*) FROM respostas');
@@ -134,9 +121,6 @@ app.delete('/api/limpar', async (req, res) => {
     }
 });
 
-// ============================================================
-// INICIA O SERVIDOR
-// ============================================================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
