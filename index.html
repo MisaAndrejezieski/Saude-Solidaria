@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saúde Solidária | Cuidando de quem cuida</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="logo">Saúde <span>Solidária</span></div>
+        <div class="nav-links">
+            <a href="frontend/pesquisa.html">📝 Pesquisa</a>
+            <a href="frontend/admin.html">🔐 Admin</a>
+            <a href="#como-funciona">Como Funciona</a>
+            <a href="#beneficios">Benefícios</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>💚 <span class="highlight">Saúde Solidária</span></h1>
+            <div class="tagline">
+                Cuidando de quem cuida de você
+            </div>
+            <p>
+                Um fundo colaborativo onde você contribui com um pequeno percentual do salário 
+                e tem reembolso de medicamentos e exames para você e sua família.
+            </p>
+            <div class="cta-buttons">
+                <a href="frontend/pesquisa.html" class="btn-primary">📝 Responder Pesquisa</a>
+                <a href="#como-funciona" class="btn-outline">📖 Saiba Mais</a>
+            </div>
+        </div>
+
+        <!-- Imagem ilustrativa -->
+        <div class="illustration">
+            <div class="placeholder-img">
+                <div class="placeholder-icon">🏥💚</div>
+                <div class="placeholder-title">Juntos somos mais fortes</div>
+                <div class="placeholder-text">Uma iniciativa dos funcionários para os funcionários</div>
+            </div>
+        </div>
+
+        <!-- Benefícios -->
+        <h2 id="beneficios" class="section-title">✨ Benefícios</h2>
+        <div class="benefits">
+            <div class="benefit-card">
+                <div class="icon">💊</div>
+                <h3>Medicamentos</h3>
+                <p>Reembolso de até 70% em medicamentos prescritos</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">🩻</div>
+                <h3>Exames</h3>
+                <p>Reembolso em exames laboratoriais e de imagem</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">👨‍👩‍👧‍👦</div>
+                <h3>Família</h3>
+                <p>Cônjuge e filhos também são cobertos</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon">💰</div>
+                <h3>Contribuição Justa</h3>
+                <p>3%, 5%, 7% ou 10% - você escolhe</p>
+            </div>
+        </div>
+
+        <!-- Como Funciona -->
+        <div id="como-funciona" class="how-it-works">
+            <h2 style="text-align: center; color: #2E8B57; margin-bottom: 20px;">📋 Como Funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Contribua</h4>
+                    <p>Escolha o percentual e comece a contribuir mensalmente</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Acumule Saldo</h4>
+                    <p>70% da sua contribuição vira saldo individual</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Use Quando Precisar</h4>
+                    <p>Solicite reembolso de remédios e exames</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Fundo Solidário</h4>
+                    <p>30% vai para o fundo compartilhado</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas (dinâmicas via API) -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalRespostas">0</div>
+                <div class="stat-label">Pessoas já ouviram a ideia</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalSim">0</div>
+                <div class="stat-label">Apoiam a iniciativa</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Solidariedade</div>
+            </div>
+        </div>
+
+        <!-- Call to Action final -->
+        <div class="final-cta">
+            <h3>💚 Faça parte dessa corrente do bem!</h3>
+            <p>Sua opinião é fundamental para construirmos um benefício que atenda a todos.</p>
+            <a href="frontend/pesquisa.html" class="btn-secondary">
+                📝 Quero participar da pesquisa
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>🏥 Saúde Solidária | Uma iniciativa dos funcionários para os funcionários</p>
+            <p>Contribuição voluntária | Gestão transparente | Solidariedade em primeiro lugar</p>
+            <p class="footer-link">
+                <a href="frontend/admin.html">🔐 Acesso Administrativo</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>
