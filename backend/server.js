@@ -7,21 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ============================================================
-// CONEXÃO COM O BANCO DE DADOS (LOCAL)
-// ============================================================
 const pool = new Pool({
-    host: 'localhost',
-    port: 5432,
-    user: 'postgres',
-    password: 'qwert123',  // ← SUBSTITUA PELA SUA SENHA DO POSTGRESQL
-    database: 'saude_db',
-    ssl: false
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
 });
 
-// ============================================================
-// CRIA A TABELA SE NÃO EXISTIR
-// ============================================================
+// Criar tabela se não existir
 async function initDatabase() {
     const createTableQuery = `
         CREATE TABLE IF NOT EXISTS respostas (
@@ -50,16 +41,12 @@ async function initDatabase() {
 }
 initDatabase();
 
-// ============================================================
-// ROTA DE TESTE
-// ============================================================
+// Rota de teste
 app.get('/', (req, res) => {
     res.json({ message: 'API Saúde Solidária funcionando!' });
 });
 
-// ============================================================
-// ENDPOINT PARA SALVAR RESPOSTA
-// ============================================================
+// Endpoint para salvar resposta
 app.post('/api/respostas', async (req, res) => {
     const { nome, setor, salario, gasto_medicamento, gasto_exame, tem_conjuge, gasto_conjuge, qtd_filhos, gastos_filhos, participaria, percentual_ideal, comentarios } = req.body;
     try {
@@ -74,9 +61,7 @@ app.post('/api/respostas', async (req, res) => {
     }
 });
 
-// ============================================================
-// ENDPOINT PARA LISTAR RESPOSTAS
-// ============================================================
+// Endpoint para listar respostas
 app.get('/api/respostas', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM respostas ORDER BY data DESC');
@@ -87,9 +72,7 @@ app.get('/api/respostas', async (req, res) => {
     }
 });
 
-// ============================================================
-// ENDPOINT PARA ESTATÍSTICAS
-// ============================================================
+// Endpoint para estatísticas
 app.get('/api/estatisticas', async (req, res) => {
     try {
         const result = await pool.query(`SELECT COUNT(*) as total, SUM(CASE WHEN participaria = 'sim' THEN 1 ELSE 0 END) as total_sim, SUM(CASE WHEN participaria = 'nao' THEN 1 ELSE 0 END) as total_nao, SUM(CASE WHEN participaria = 'talvez' THEN 1 ELSE 0 END) as total_talvez FROM respostas`);
@@ -101,42 +84,26 @@ app.get('/api/estatisticas', async (req, res) => {
     }
 });
 
-// ============================================================
-// ENDPOINT PARA LIMPAR O BANCO (DELETE)
-// ============================================================
+// 🔴 ENDPOINT PARA LIMPAR O BANCO (DELETE) - APAGA TODAS AS RESPOSTAS
 app.delete('/api/limpar', async (req, res) => {
     try {
         const countResult = await pool.query('SELECT COUNT(*) FROM respostas');
         const total = parseInt(countResult.rows[0].count);
         
         if (total === 0) {
-            return res.json({ 
-                success: true, 
-                message: 'Banco já estava vazio',
-                deletedCount: 0
-            });
+            return res.json({ success: true, message: 'Banco já estava vazio', deletedCount: 0 });
         }
         
         const result = await pool.query('DELETE FROM respostas');
         console.log(`🗑️ ${result.rowCount} respostas deletadas do banco`);
         
-        res.json({ 
-            success: true, 
-            message: `${result.rowCount} respostas foram deletadas com sucesso!`,
-            deletedCount: result.rowCount
-        });
+        res.json({ success: true, message: `${result.rowCount} respostas foram deletadas com sucesso!`, deletedCount: result.rowCount });
     } catch (err) {
         console.error('❌ Erro ao limpar banco:', err);
-        res.status(500).json({ 
-            success: false, 
-            error: 'Erro ao limpar dados do banco' 
-        });
+        res.status(500).json({ success: false, error: 'Erro ao limpar dados do banco' });
     }
 });
 
-// ============================================================
-// INICIA O SERVIDOR
-// ============================================================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
