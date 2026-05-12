@@ -4,6 +4,19 @@
     box-sizing: border-box;
 }
 
+.logo-img {
+    height: 50px;        /* Ajuste a altura conforme necessário */
+    width: auto;         /* Mantém a proporção */
+    display: block;
+}
+
+/* Se quiser um tamanho diferente no celular */
+@media (max-width: 768px) {
+    .logo-img {
+        height: 40px;
+    }
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #E8F5E9 0%, #E0F2FE 100%);
