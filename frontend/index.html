@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Saúde Solidária - Pesquisa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💚 Saúde Solidária</h1>
+            <p>Responda em 2 minutos. Sua participação é voluntária e anônima.</p>
+        </div>
+
+        <form id="surveyForm">
+            <div class="form-group">
+                <label>Nome completo (opcional - pode ser anônimo)</label>
+                <input type="text" id="nome" placeholder="Ex: João Silva ou Anônimo">
+            </div>
+
+            <div class="form-group">
+                <label>Setor onde trabalha</label>
+                <select id="setor" required>
+                    <option value="">Selecione...</option>
+                    <option value="Administrativo">Administrativo</option>
+                    <option value="Produção">Produção</option>
+                    <option value="Comercial">Comercial</option>
+                    <option value="Logística">Logística</option>
+                    <option value="RH">RH</option>
+                    <option value="Financeiro">Financeiro</option>
+                    <option value="TI">TI</option>
+                    <option value="Manutenção">Manutenção</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Qual sua média salarial mensal (aproximada)?</label>
+                <select id="salario" required>
+                    <option value="">Selecione...</option>
+                    <option value="ate_2000">Até R$ 2.000</option>
+                    <option value="2001_3000">R$ 2.001 a R$ 3.000</option>
+                    <option value="3001_4000">R$ 3.001 a R$ 4.000</option>
+                    <option value="4001_5000">R$ 4.001 a R$ 5.000</option>
+                    <option value="acima_5000">Acima de R$ 5.000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Você tem gastos mensais com medicamentos?</label>
+                <select id="gasto_medicamento">
+                    <option value="nenhum">Não tenho gastos</option>
+                    <option value="ate_50">Até R$ 50/mês</option>
+                    <option value="51_100">R$ 51 a R$ 100/mês</option>
+                    <option value="101_200">R$ 101 a R$ 200/mês</option>
+                    <option value="201_500">R$ 201 a R$ 500/mês</option>
+                    <option value="acima_500">Acima de R$ 500/mês</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Você tem gastos com exames periódicos?</label>
+                <select id="gasto_exame">
+                    <option value="nenhum">Não tenho gastos</option>
+                    <option value="ate_50">Até R$ 50/mês (média)</option>
+                    <option value="51_100">R$ 51 a R$ 100/mês</option>
+                    <option value="101_200">R$ 101 a R$ 200/mês</option>
+                    <option value="acima_200">Acima de R$ 200/mês</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Você tem cônjuge/companheiro(a)?</label>
+                <select id="tem_conjuge">
+                    <option value="nao">Não</option>
+                    <option value="sim">Sim</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="conjuge_info" style="display:none;">
+                <label>O cônjuge tem gastos mensais com remédios ou exames?</label>
+                <select id="gasto_conjuge">
+                    <option value="nenhum">Não tem gastos</option>
+                    <option value="ate_50">Até R$ 50/mês</option>
+                    <option value="51_100">R$ 51 a R$ 100/mês</option>
+                    <option value="101_200">R$ 101 a R$ 200/mês</option>
+                    <option value="acima_200">Acima de R$ 200/mês</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Quantos filhos menores de 21 anos você tem?</label>
+                <select id="qtd_filhos">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3 ou mais</option>
+                </select>
+            </div>
+
+            <div id="filhos_info" style="display:none;"></div>
+
+            <div class="form-group">
+                <label>Você participaria de um fundo solidário com contribuição mensal?</label>
+                <select id="participaria" required>
+                    <option value="">Selecione...</option>
+                    <option value="sim">Sim, participaria</option>
+                    <option value="nao">Não tenho interesse</option>
+                    <option value="talvez">Talvez, preciso de mais informações</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Qual percentual você consideraria justo?</label>
+                <select id="percentual_ideal" required>
+                    <option value="">Selecione...</option>
+                    <option value="3">3% do salário</option>
+                    <option value="5">5% do salário</option>
+                    <option value="7">7% do salário</option>
+                    <option value="10">10% do salário</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Comentários ou sugestões (opcional)</label>
+                <textarea id="comentarios" rows="3" placeholder="Deixe sua opinião..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">📤 Enviar resposta</button>
+        </form>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
